@@ -236,7 +236,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vinyl_0: 5403953893117154011
+      vinyl_1: 3512251986784712332
+      vinyl_2: -5059740564117222523
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
