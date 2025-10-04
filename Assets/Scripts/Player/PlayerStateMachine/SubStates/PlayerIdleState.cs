@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerSuperState{
+public class PlayerIdleState : PlayerAliveState{
     public PlayerIdleState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
     }
 
