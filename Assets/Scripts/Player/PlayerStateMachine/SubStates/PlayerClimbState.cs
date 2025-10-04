@@ -40,7 +40,6 @@ public class PlayerClimbState : PlayerAliveState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        Debug.Log(player.playerCollider.GetContacts(new ContactPoint2D[10]));
         if (temporaryignoreJump & !player.input.jumpPressed) { temporaryignoreJump = false; }
         player.rb.linearVelocityY = 0.0f;
         player.rb.linearVelocityX = 0.0f;

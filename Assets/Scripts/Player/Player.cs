@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour
     [SerializeField] public bool[] haveFleshes;
     List<Treasure> Bezoars;
     List<Treasure> Fleshes;
+    bool gameBeaten;
 [Header("State Machine States")]
 
     public PlayerIdleState playerIdleState { get; set; }
@@ -63,10 +65,11 @@ public class Player : MonoBehaviour
     public PlayerStandState playerStandState { get; set; }
     public PlayerHopOnPlatformState playerHopOnPlatformState { get; set; }
     public PlayerFireGrappleState playerFireGrappleState { get; set; }
+    public PlayerWinState playerWinState{ get; set; }
     // Start is called before the first frame update
     void Start()
     {
-
+        gameBeaten = false;
         GrabTreasures(); //Fills
         stateMachine = GetComponent<PlayerStateMachine>();
         playerIdleState = new PlayerIdleState(this, stateMachine);
@@ -76,13 +79,20 @@ public class Player : MonoBehaviour
         playerRunState = new PlayerRunState(this, stateMachine);
         playerStandState = new PlayerStandState(this, stateMachine);
         playerHopOnPlatformState = new PlayerHopOnPlatformState(this, stateMachine);
+        playerWinState = new PlayerWinState(this, stateMachine);
         stateMachine.Initialize(playerFallState);
 
     }
 
     void GrabTreasures()
     {
-        Treasure[] allTreasures = FindObjectsOfType<Treasure>();
+        Consoles = new List<Treasure>();
+        Controllers = new List<Treasure>();
+        Fleshes = new List<Treasure>();
+        Bezoars = new List<Treasure>();
+        Vinyls = new List<Treasure>();
+
+        Treasure[] allTreasures = FindObjectsByType<Treasure>(FindObjectsSortMode.None);
         foreach (Treasure treasure in allTreasures)
         {
             switch (treasure.whatAmI)
@@ -94,29 +104,35 @@ public class Player : MonoBehaviour
 
                     break;
                 case Treasure.WhatAmI.Console:
+
+                    treasure.treasureIndex = Consoles.Count;
                     Consoles.Add(treasure);
                     break;
                 case Treasure.WhatAmI.Controller:
+                    treasure.treasureIndex = Controllers.Count;
                     Controllers.Add(treasure);
                     break;
                 case Treasure.WhatAmI.Flesh:
+                    treasure.treasureIndex = Fleshes.Count;
                     Fleshes.Add(treasure);
                     break;
                 case Treasure.WhatAmI.Bezoar:
+                    treasure.treasureIndex = Bezoars.Count;
                     Bezoars.Add(treasure);
                     break;
                 case Treasure.WhatAmI.Vinyl:
+                    treasure.treasureIndex = Vinyls.Count;
                     Vinyls.Add(treasure);
                     break;
                 default:
                     break;
             }
-            haveBezoars = new bool[Bezoars.Count];
-            haveConsoles = new bool[Consoles.Count];
-            haveControllers = new bool[Controllers.Count];
-            haveFleshes = new bool[Fleshes.Count];
-            haveVinyls = new bool[Vinyls.Count];
         }
+        haveBezoars = new bool[Bezoars.Count];
+        haveConsoles = new bool[Consoles.Count];
+        haveControllers = new bool[Controllers.Count];
+        haveFleshes = new bool[Fleshes.Count];
+        haveVinyls = new bool[Vinyls.Count];
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -174,6 +190,57 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Treasure")
+        {
+            Treasure treasureObj = collision.gameObject.GetComponent<Treasure>();
+            switch (treasureObj.whatAmI)
+            {
+                case Treasure.WhatAmI.Skull:
+                    hasSkull = true;
+                    Destroy(collision.gameObject);
+                    break;
+                case Treasure.WhatAmI.Butters:
+                    hasButters = true;
+                    Destroy(collision.gameObject);
+                    break;
+                case Treasure.WhatAmI.Console:
+                    haveConsoles[treasureObj.treasureIndex] = true;
+                    Destroy(collision.gameObject);
+                    break;
+                case Treasure.WhatAmI.Controller:
+                    haveControllers[treasureObj.treasureIndex] = true;
+                    Destroy(collision.gameObject);
+                    break;
+                case Treasure.WhatAmI.Flesh:
+                    haveFleshes[treasureObj.treasureIndex] = true;
+                    Destroy(collision.gameObject);
+                    break;
+                case Treasure.WhatAmI.Bezoar:
+                    haveBezoars[treasureObj.treasureIndex] = true;
+                    Destroy(collision.gameObject);
+                    break;
+                case Treasure.WhatAmI.Vinyl:
+                    haveVinyls[treasureObj.treasureIndex] = true;
+                    Destroy(collision.gameObject);
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (CheckForCompletion())
+        {
+            stateMachine.changeState(playerWinState);
+        }
+    }
+
+
+    bool CheckForCompletion()
+    {
+        return false;
+    }
     public void SetSprite(Sprite whatSprite)
     {
         playerSpriteRenderer.sprite = whatSprite;
