@@ -3,32 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerMasterState{
+public class PlayerMasterState
+{
     protected Player player;
     protected PlayerStateMachine playerStateMachine;
     protected int durationOfState = 0;
-    public PlayerMasterState(Player player, PlayerStateMachine playerStateMachine){
+    SpriteRenderer playerSpriteRenderer;
+    public PlayerMasterState(Player player, PlayerStateMachine playerStateMachine)
+    {
         this.player = player;
         this.playerStateMachine = playerStateMachine;
     }
-    public virtual void enter(){
+    public virtual void enter()
+    {
         durationOfState = 0;
     }
-    public virtual void enterNoanimate(){
+    public virtual void enterNoanimate()
+    {
         durationOfState = 0;
     }
     // Start is called before the first frame update
-    void Start(){
-        
+    void Start()
+    {
     }
     // Update is called once per frame
-    public virtual void Update(){
+    public virtual void Update()
+    {
 
     }
-    public virtual void FixedUpdate(){
+    public virtual void FixedUpdate()
+    {
         durationOfState++;
     }
-    public virtual void exit(){
+    public virtual void exit()
+    {
 
     }
+
 }

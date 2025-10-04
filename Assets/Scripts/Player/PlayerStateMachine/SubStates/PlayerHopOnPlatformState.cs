@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerAliveState{
-    public PlayerJumpState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
+public class PlayerHopOnPlatformState : PlayerAliveState{
+    public PlayerHopOnPlatformState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
     }
     Vector2 pushDir;
     public override void enter()
     {
-        Debug.Log("Jump!");
+        Debug.Log("Hopping on Platform!");
         if (player.facingDirection == Player.FacingDirection.Left)
         {
             player.SetSprite(player.jumpLeft);
@@ -26,14 +26,14 @@ public class PlayerJumpState : PlayerAliveState{
         {
             player.touchingWall = false;
 
-            //SHould change it to sense what direction the sticky wall is.
+            //Should change it to sense what direction the sticky wall is.
             if (player.facingDirection == Player.FacingDirection.Right)
             {
-                player.rb.linearVelocityX = -5.0f;
+                player.rb.linearVelocityX = 5.0f;
             }
             else
             {
-                player.rb.linearVelocityX = 5.0f;
+                player.rb.linearVelocityX = -5.0f;
             }
         }
         base.enter();

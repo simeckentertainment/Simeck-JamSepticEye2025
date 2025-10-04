@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: da6608f844c90454f86da24c4f4147ec
+guid: f1e93a8a442da8f47929856cca1e41d7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -701939027512975289
-    second: harpoonright_0
+      213: 3466288813027640137
+    second: jumpleft_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: harpoonright_0
+      name: jumpleft_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 20
-        width: 469
-        height: 350
+        x: 177
+        y: 32
+        width: 918
+        height: 1187
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7402b1b6c263246f0800000000000000
-      internalID: -701939027512975289
+      spriteID: 9434c6d6f4bba1030800000000000000
+      internalID: 3466288813027640137
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      harpoonright_0: -701939027512975289
+      jumpleft_0: 3466288813027640137
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

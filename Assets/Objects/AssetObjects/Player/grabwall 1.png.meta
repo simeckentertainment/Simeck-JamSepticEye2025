@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: da6608f844c90454f86da24c4f4147ec
+guid: 317109b5853221644878abc702804230
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -701939027512975289
-    second: harpoonright_0
+      213: -1256182935924543030
+    second: grabwall 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: harpoonright_0
+      name: grabwall 1_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 20
-        width: 469
-        height: 350
+        x: 27
+        y: 16
+        width: 162
+        height: 345
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7402b1b6c263246f0800000000000000
-      internalID: -701939027512975289
+      spriteID: ac17f4b7644219ee0800000000000000
+      internalID: -1256182935924543030
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      harpoonright_0: -701939027512975289
+      grabwall 1_0: -1256182935924543030
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
