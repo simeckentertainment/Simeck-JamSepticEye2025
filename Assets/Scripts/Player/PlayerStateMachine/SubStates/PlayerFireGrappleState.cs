@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerFireGrappleState : PlayerAliveState{
     public PlayerFireGrappleState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
     }
+    public override void enter()
+    {
 
-    public override void enter(){
         base.enter();
     }
     public override void Update(){

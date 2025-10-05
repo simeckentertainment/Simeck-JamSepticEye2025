@@ -13,7 +13,9 @@ public class GrapplerTargetingMachine : MonoBehaviour
     [SerializeField] InputDriver input;
     [SerializeField] Player player;
     public Vector2 FinalAimAngle;
-
+    public Vector2 ScreenSpaceGrappleTarget;
+    RaycastHit2D distChecker;
+    float RayLength;
 
 
 
@@ -39,26 +41,39 @@ public class GrapplerTargetingMachine : MonoBehaviour
         ScreenLaunchPos = Camera.main.WorldToScreenPoint(WorldLaunchPos);
 
         MousePos = input.mousePositionVal; //Should be between 0x0 and resolution max;
-        RightStickAngle = input.gamepadAimVal; //Should be between -1 and 1.
 
-
+        if (input.controlType == InputDriver.ControlType.KBM)
+        {
+            FinalAimAngle = GetMouseAimAngle();
+        }
+        else
+        {
+            FinalAimAngle = input.gamepadAimVal; //Should be between -1 and 1.
+        }
     }
-
-
-
-
-
     Vector2 GetMouseAimAngle()
     {
-
-
-        return Vector2.zero;
+        return Helper.AngleOfTwoPoints(ScreenLaunchPos, MousePos);
     }
 
-    Vector2 GetGamepadAimAngle()
+    public Vector2 GetWorldSpaceGrappleTargetPoint()
     {
+        Vector2 returnVal = new Vector2();
+        distChecker = Physics2D.Raycast(WorldLaunchPos, FinalAimAngle, player.GrapplerDist);
+        if (distChecker.collider != null)
+        {
+            RayLength = Vector2.Distance(distChecker.point, WorldLaunchPos);
+            Debug.DrawRay(WorldLaunchPos, FinalAimAngle * RayLength, Color.red);
+            returnVal = distChecker.point;
 
-
-        return Vector2.zero;
+        }
+        else
+        {
+            Debug.DrawRay(WorldLaunchPos, FinalAimAngle * player.GrapplerDist, Color.red);
+            returnVal = WorldLaunchPos + (FinalAimAngle * player.GrapplerDist);
+        }
+        return returnVal;
     }
+
+
 }
