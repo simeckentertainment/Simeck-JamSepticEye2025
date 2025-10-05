@@ -37,6 +37,10 @@ public class PlayerFallState : PlayerAliveState{
         {
             player.stateMachine.changeState(player.playerClimbState);
         }
+        if (player.input.harpoonPressed)
+        {
+            player.stateMachine.changeState(player.playerFireGrappleState);
+        }
     }
 
     public override void FixedUpdate(){

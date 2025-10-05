@@ -8,11 +8,11 @@ public class PlayerStandState : PlayerAliveState{
 
     public override void enter(){
         Debug.Log("Stand!");
-                if (player.facingDirection == Player.FacingDirection.Left)
+        if (player.facingDirection == Player.FacingDirection.Left)
         {
             player.SetSprite(player.standLeft);
         }
-        else
+        if (player.facingDirection == Player.FacingDirection.Right)
         {
             player.SetSprite(player.standRight);
         }
@@ -32,6 +32,10 @@ public class PlayerStandState : PlayerAliveState{
         if (player.input.jumpPressed)
         {
             player.stateMachine.changeState(player.playerJumpState);
+        }
+        if (player.input.harpoonPressed)
+        {
+            player.stateMachine.changeState(player.playerFireGrappleState);
         }
         
     }
