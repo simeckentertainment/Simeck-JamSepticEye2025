@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -77,9 +78,11 @@ public class Player : MonoBehaviour
     public PlayerHopOnPlatformState playerHopOnPlatformState { get; set; }
     public PlayerFireGrappleState playerFireGrappleState { get; set; }
     public PlayerWinState playerWinState { get; set; }
+    [SerializeField] int TreasuresRemaining;
     // Start is called before the first frame update
     void Start()
     {
+        
         gameBeaten = false;
         GrabTreasures(); //Fills
         stateMachine = GetComponent<PlayerStateMachine>();
@@ -145,6 +148,7 @@ public class Player : MonoBehaviour
         haveControllers = new bool[Controllers.Count];
         haveFleshes = new bool[Fleshes.Count];
         haveVinyls = new bool[Vinyls.Count];
+        TreasuresRemaining = Bezoars.Count + Consoles.Count + Controllers.Count + Fleshes.Count + Vinyls.Count + 2; //the 2 being Butters and the Skull.
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -162,6 +166,12 @@ public class Player : MonoBehaviour
         }
 
         targetingReticle.position = GTM.WorldSpaceGrappleTarget; //The targeting reticle is in screen space.
+
+
+        if (TreasuresRemaining == 0)
+        {
+            WinGame();
+        }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -176,6 +186,9 @@ public class Player : MonoBehaviour
                 break;
             case "Enemy":
 
+                break;
+            case "InstantDeath":
+                SceneManager.LoadScene("LoseScene");
                 break;
             default:
 
@@ -245,11 +258,10 @@ public class Player : MonoBehaviour
                 default:
                     break;
             }
+            TreasuresRemaining -= 1;
         }
-        if (CheckForCompletion())
-        {
-            stateMachine.changeState(playerWinState);
-        }
+        
+       
     }
 
 
@@ -285,6 +297,10 @@ public class Player : MonoBehaviour
     public void SetHookLaunchPoint(Vector2 pos)
     {
         HookOBJ.GetComponent<ChainManager>().launchPoint = pos; //Not performant, but fuck you for judging me. ~Randy
+    }
+    void WinGame()
+    {
+        SceneManager.LoadScene("WinScene");
     }
 }
 
