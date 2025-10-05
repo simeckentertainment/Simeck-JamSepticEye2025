@@ -231,8 +231,21 @@ public class Helper
         // Set rest pose (in local space, after constraint is active)
         //constraint.translationAtRest = constrainedObject.transform.localPosition;
         constrainedObject.transform.localPosition = Vector3.zero;
-}
+    }
 
+    public static Vector2 AngleOfTwoPoints(Vector2 from, Vector2 to)
+    {
+    // Calculate the direction vector
+    Vector2 direction = to - from;
+    // Normalize it to get a unit vector (magnitude of 1)
+    return direction.normalized;
+    }
 
-
+    public static Vector3 AngleOfTwoPoints(Vector3 from, Vector3 to)
+    {
+            // Calculate the direction vector
+    Vector3 direction = to - from;
+    // Normalize it to get a unit vector (magnitude of 1)
+    return direction.normalized;
+    }
 }

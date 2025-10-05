@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     public float MaximumJumpHold;
     public float maxLateralSpeed;
     public float climbSpeed;
-
+    public int GrapplerDist;
+    public GrapplerTargetingMachine GTM;
 
     [Header("Graphics Storage")]
     [SerializeField] public SpriteRenderer playerSpriteRenderer;
@@ -154,6 +155,8 @@ public class Player : MonoBehaviour
         else
         {
         }
+
+        GTM.GetWorldSpaceGrappleTargetPoint();
     }
     void OnCollisionEnter2D(Collision2D other)
     {
