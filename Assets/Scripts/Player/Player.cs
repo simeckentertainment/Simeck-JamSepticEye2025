@@ -55,6 +55,12 @@ public class Player : MonoBehaviour
     List<Treasure> Bezoars;
     List<Treasure> Fleshes;
     bool gameBeaten;
+    [Header("Harpoon Stuff")]
+    [SerializeField] public GameObject LeftHookshotLaunchPoint; 
+    [SerializeField] public GameObject RightHookshotLaunchPoint; 
+
+
+
 [Header("State Machine States")]
 
     public PlayerIdleState playerIdleState { get; set; }
