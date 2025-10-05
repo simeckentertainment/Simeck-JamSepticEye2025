@@ -6,7 +6,7 @@ public class PlayerAliveState : PlayerMasterState{
     public PlayerAliveState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
     }
 
-
+    //Here is where we will do  the grappler stuff.
     public override void enter(){
         base.enter();
     }

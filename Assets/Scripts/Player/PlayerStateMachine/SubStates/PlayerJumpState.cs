@@ -5,15 +5,55 @@ using UnityEngine;
 public class PlayerJumpState : PlayerAliveState{
     public PlayerJumpState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
     }
+    Vector2 pushDir;
+    public override void enter()
+    {
+        Debug.Log("Jump!");
+        if (player.facingDirection == Player.FacingDirection.Left)
+        {
+            player.SetSprite(player.jumpLeft);
+        }
+        else
+        {
+            player.SetSprite(player.jumpRight);
+        }
 
-    public override void enter(){
+
+        player.onGround = false;
+
+
+        if (player.touchingWall)
+        {
+            player.touchingWall = false;
+
+            //SHould change it to sense what direction the sticky wall is.
+            if (player.facingDirection == Player.FacingDirection.Right)
+            {
+                player.rb.linearVelocityX = -5.0f;
+            }
+            else
+            {
+                player.rb.linearVelocityX = 5.0f;
+            }
+        }
         base.enter();
     }
     public override void Update(){
-        base.Update();
     }
 
     public override void FixedUpdate(){
+        float pushX = player.input.moveVal.x;
+        float pushY = player.input.jumpPressed & (durationOfState < player.MaximumJumpHold) ? 150.0f : 0.0f;
+        pushDir = new Vector2(pushX, pushY);
+        player.rb.AddForce(pushDir);
+        if (player.rb.linearVelocityY < 0.0f)
+        {
+            player.stateMachine.changeState(player.playerFallState);
+        }
+        if (player.touchingWall)
+        {
+            player.stateMachine.changeState(player.playerClimbState);
+        }
         base.FixedUpdate();
     }
 }
