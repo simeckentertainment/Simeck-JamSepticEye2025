@@ -13,8 +13,10 @@ public class PlayerClimbState : PlayerAliveState
     bool temporaryignoreJump;
     Sprite[] currentGraphics;
     bool contactLossBufferFrameUsed;
+    bool ignoreGrappleInput;
     public override void enter()
     {
+        ignoreGrappleInput = true;
         Debug.Log("Climb!");
         contactLossBufferFrameUsed = false;
         GraphicChangeThreshold = 3;
@@ -73,6 +75,15 @@ public class PlayerClimbState : PlayerAliveState
         {
             player.touchingWall = false;
             player.stateMachine.changeState(player.playerStandState);
+        }
+
+        if (!player.input.harpoonPressed & ignoreGrappleInput) //Ignoring grappler input until it's released once.
+        {
+            ignoreGrappleInput = false;
+        }
+        if (player.input.harpoonPressed & !ignoreGrappleInput)
+        {
+            player.stateMachine.changeState(player.playerFireGrappleState);
         }
     }
 

@@ -30,8 +30,18 @@ public class PlayerRunState : PlayerAliveState
 
     public override void FixedUpdate()
     {
-        RunGraphics();
-        player.facingDirection = player.input.moveVal.x > 0.0f ? Player.FacingDirection.Right : Player.FacingDirection.Left;
+
+        if (player.input.moveVal.x > 0.0f)
+        {
+            player.facingDirection = Player.FacingDirection.Right;
+        }
+        if (player.input.moveVal.x > 0.0f)
+        {
+            player.facingDirection = Player.FacingDirection.Right;
+        }
+
+
+
         player.rb.AddForceX(player.input.moveVal.x, ForceMode2D.Impulse);
         if (player.rb.linearVelocityX > player.maxLateralSpeed) { player.rb.linearVelocityX = player.maxLateralSpeed; }
         if (player.rb.linearVelocityX < (player.maxLateralSpeed * -1)) { player.rb.linearVelocityX = (player.maxLateralSpeed * -1); }
@@ -41,7 +51,7 @@ public class PlayerRunState : PlayerAliveState
             player.rb.linearVelocityX = player.rb.linearVelocityX < 0.02f & player.rb.linearVelocityX > -0.02f ? player.rb.linearVelocityX = 0.0f : player.rb.linearVelocityX *= 0.2f;
         }
 
-
+        RunGraphics();
         if (player.rb.linearVelocityX == 0.0f)
         {
             player.stateMachine.changeState(player.playerStandState);
@@ -55,6 +65,14 @@ public class PlayerRunState : PlayerAliveState
         {
             player.stateMachine.changeState(player.playerClimbState);
         }
+
+        if (player.input.harpoonPressed)
+        {
+            player.stateMachine.changeState(player.playerFireGrappleState);
+        }
+
+
+
         base.FixedUpdate();
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour
     [SerializeField] public Sprite harpoonAfterFireLeft;
     [SerializeField] public Sprite harpoonRight;
     [SerializeField] public Sprite harpoonAfterFireRight;
+    [SerializeField] public Sprite harpoonFailLeft;
+    [SerializeField] public Sprite harpoonFailRight;
     [SerializeField] public Sprite[] runLeft;
     [SerializeField] public Sprite[] runRight;
     [SerializeField] public Sprite[] climbLeft;
@@ -35,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] public Sprite harpoonArrow;
     [SerializeField] public Sprite jumpLeft;
     [SerializeField] public Sprite jumpRight;
+    [SerializeField] public GameObject HookOBJ;
 
 
 
@@ -57,12 +61,12 @@ public class Player : MonoBehaviour
     List<Treasure> Fleshes;
     bool gameBeaten;
     [Header("Harpoon Stuff")]
-    [SerializeField] public GameObject LeftHookshotLaunchPoint; 
-    [SerializeField] public GameObject RightHookshotLaunchPoint; 
+    [SerializeField] public GameObject LeftHookshotLaunchPoint;
+    [SerializeField] public GameObject RightHookshotLaunchPoint;
+    [SerializeField] public Transform targetingReticle;
 
 
-
-[Header("State Machine States")]
+    [Header("State Machine States")]
 
     public PlayerIdleState playerIdleState { get; set; }
     public PlayerFallState playerFallState { get; set; }
@@ -72,7 +76,7 @@ public class Player : MonoBehaviour
     public PlayerStandState playerStandState { get; set; }
     public PlayerHopOnPlatformState playerHopOnPlatformState { get; set; }
     public PlayerFireGrappleState playerFireGrappleState { get; set; }
-    public PlayerWinState playerWinState{ get; set; }
+    public PlayerWinState playerWinState { get; set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +91,7 @@ public class Player : MonoBehaviour
         playerStandState = new PlayerStandState(this, stateMachine);
         playerHopOnPlatformState = new PlayerHopOnPlatformState(this, stateMachine);
         playerWinState = new PlayerWinState(this, stateMachine);
+        playerFireGrappleState = new PlayerFireGrappleState(this, stateMachine);
         stateMachine.Initialize(playerFallState);
 
     }
@@ -152,15 +157,16 @@ public class Player : MonoBehaviour
         {
             facingDirection = FacingDirection.Left;
         }
-        else
+        else if (input.moveVal.x == 0.0f)
         {
         }
 
-        GTM.GetWorldSpaceGrappleTargetPoint();
+        targetingReticle.position = GTM.WorldSpaceGrappleTarget; //The targeting reticle is in screen space.
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        switch (other.gameObject.tag){
+        switch (other.gameObject.tag)
+        {
             case "Ground":
                 foreach (ContactPoint2D contact in other.contacts)
                 {
@@ -175,8 +181,9 @@ public class Player : MonoBehaviour
 
                 break;
         }
-        if (other.gameObject.tag == "Ground"){
-            
+        if (other.gameObject.tag == "Ground")
+        {
+
         }
     }
     void OnCollisionExit2D(Collision2D other)
@@ -255,6 +262,30 @@ public class Player : MonoBehaviour
         playerSpriteRenderer.sprite = whatSprite;
     }
     public enum FacingDirection { Left, Right };
+
+
+    public void ShowHook()
+    {
+        HookOBJ.SetActive(true);
+        targetingReticle.gameObject.SetActive(false);
+    }
+    public void HideHook()
+    {
+        HookOBJ.SetActive(false);
+        targetingReticle.gameObject.SetActive(true);
+    }
+    public void SetHookPos(Vector2 pos)
+    {
+        HookOBJ.transform.position = pos;
+    }
+    public void SetHookAngle(Vector2 rot)
+    {
+        HookOBJ.transform.rotation = Quaternion.Euler(rot);
+    }
+    public void SetHookLaunchPoint(Vector2 pos)
+    {
+        HookOBJ.GetComponent<ChainManager>().launchPoint = pos; //Not performant, but fuck you for judging me. ~Randy
+    }
 }
 
 

@@ -54,6 +54,10 @@ public class PlayerJumpState : PlayerAliveState{
         {
             player.stateMachine.changeState(player.playerClimbState);
         }
+        if (player.input.harpoonPressed)
+        {
+            player.stateMachine.changeState(player.playerFireGrappleState);
+        }
         base.FixedUpdate();
     }
 }
