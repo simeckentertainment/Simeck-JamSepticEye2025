@@ -15,6 +15,7 @@ public class InputDriver : MonoBehaviour
     public bool jumpPressed;
     public InputControl currentControl;
     public ControlType controlType;
+    public InputAction QuitAction;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,7 +34,10 @@ public class InputDriver : MonoBehaviour
         RunAim();
         harpoonPressed = harpoonAction.ReadValue<float>() >= 0.5f;
         jumpPressed = jumpAction.ReadValue<float>() == 1.0f;
-
+        if (QuitAction.ReadValue<float>() == 1.0f)
+        {
+            Application.Quit();
+        }
     }
 
     private void RunAim()
