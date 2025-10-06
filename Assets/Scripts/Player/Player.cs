@@ -81,7 +81,8 @@ public class Player : MonoBehaviour
     [SerializeField] public AudioClip jumpSound;
     [SerializeField] public AudioClip FireGrappler;
     [SerializeField] public AudioClip LandOnWall;
-
+    [SerializeField] public AudioClip RUNFAST;
+    [SerializeField] public AudioClip land;
 
 
     [Header("State Machine States")]
@@ -211,7 +212,7 @@ public class Player : MonoBehaviour
 
                 break;
             case "InstantDeath":
-                SceneManager.LoadScene("LoseScene");
+                SceneManager.LoadScene("AcidLoseScene");
                 break;
             default:
 
@@ -332,6 +333,13 @@ public class Player : MonoBehaviour
     void UpdateRichesText()
     {
         moneyText.text = riches.ToString();
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        if (sfx.isPlaying & sfx.clip == clip)
+        {
+            return;
+        }   
     }
 }
 

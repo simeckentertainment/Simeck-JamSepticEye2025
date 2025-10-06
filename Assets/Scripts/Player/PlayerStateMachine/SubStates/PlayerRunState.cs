@@ -18,6 +18,8 @@ public class PlayerRunState : PlayerAliveState
         GraphicChangeThreshold = 3;
         currentGraphicIndex = 0;
         graphicChangeCounter = 0;
+        player.sfx.clip = player.RUNFAST;
+        player.sfx.Play();
         base.enter();
     }
     public override void Update()
@@ -54,20 +56,24 @@ public class PlayerRunState : PlayerAliveState
         RunGraphics();
         if (player.rb.linearVelocityX == 0.0f)
         {
+            player.sfx.Stop();
             player.stateMachine.changeState(player.playerStandState);
         }
         if (player.input.jumpPressed)
         {
+            player.sfx.Stop();
             player.stateMachine.changeState(player.playerJumpState);
         }
 
         if (player.touchingWall)
         {
+            player.sfx.Stop();
             player.stateMachine.changeState(player.playerClimbState);
         }
 
         if (player.input.harpoonPressed)
         {
+            player.sfx.Stop();
             player.stateMachine.changeState(player.playerFireGrappleState);
         }
 
@@ -91,6 +97,10 @@ public class PlayerRunState : PlayerAliveState
         
     }
 
-
+    void exit()
+    {
+        base.exit();
+        player.sfx.Stop();
+    }
 
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class TimerManager : MonoBehaviour
 {
     [Header("Timer Settings")]
@@ -52,7 +52,7 @@ public class TimerManager : MonoBehaviour
     private void OnTimerComplete()
     {
         Debug.Log("Timer Complete!");
-        // Add your custom logic here (game over, level complete, etc.)
+        SceneManager.LoadScene("TimerLoseScene");
     }
     
     // Public methods to control the timer
