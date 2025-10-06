@@ -41,13 +41,26 @@ public class PlayerFireGrappleState : PlayerAliveState
     {
         if (durationOfState < 2)
         {
-            player.SetHookPos(Helper.Midpoint((Vector2)player.transform.position, player.GTM.WorldSpaceGrappleTarget));
+            if (player.facingDirection == Player.FacingDirection.Left)
+            {
+                player.SetHookPos(Helper.Midpoint((Vector2)player.LeftHookshotLaunchPoint.transform.position, player.GTM.WorldSpaceGrappleTarget));
+            }
+            else
+            {
+                player.SetHookPos(Helper.Midpoint((Vector2)player.RightHookshotLaunchPoint.transform.position, player.GTM.WorldSpaceGrappleTarget));
+            }
             
         }
         else
         {
             player.SetHookPos(player.GTM.WorldSpaceGrappleTarget);
         }
+
+        if (durationOfState == 10)
+        {
+            PickAGoddamnDirection();
+        }
+
         Vector2 hookDir = (player.HookOBJ.transform.position - player.transform.position).normalized;
         player.HookOBJ.transform.up = hookDir;
         //player.SetHookAngle(Helper.AngleOfTwoPoints((Vector2)player.transform.position,player.GTM.WorldSpaceGrappleTarget));
@@ -73,6 +86,18 @@ public class PlayerFireGrappleState : PlayerAliveState
             DetermineStateChange();
         }
         base.FixedUpdate();
+    }
+
+    private void PickAGoddamnDirection()
+    {
+        if (player.rb.linearVelocityX > 0.0f)
+        {
+            player.facingDirection = Player.FacingDirection.Right;
+        }
+        else
+        {
+            player.facingDirection = Player.FacingDirection.Left;
+        }
     }
 
     private void SetMovingSprite()

@@ -6,9 +6,14 @@ public class PlayerJumpState : PlayerAliveState{
     public PlayerJumpState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine){
     }
     Vector2 pushDir;
+    float xFactor;
+    bool stillJumpMode;
     public override void enter()
     {
         Debug.Log("Jump!");
+        xFactor = player.input.moveVal.x;
+        stillJumpMode = xFactor == 0 ? true : false;
+
         player.sfx.PlayOneShot(player.jumpSound);
         if (player.facingDirection == Player.FacingDirection.Left)
         {
@@ -43,7 +48,9 @@ public class PlayerJumpState : PlayerAliveState{
     }
 
     public override void FixedUpdate(){
-        float pushX = player.input.moveVal.x;
+        float pushX = stillJumpMode ? player.input.moveVal.x * 10 : player.input.moveVal.x;
+
+        //Pushes the player up when jump is pressed.
         float pushY = player.input.jumpPressed & (durationOfState < player.MaximumJumpHold) ? 150.0f : 0.0f;
         pushDir = new Vector2(pushX, pushY);
         player.rb.AddForce(pushDir);
@@ -51,7 +58,7 @@ public class PlayerJumpState : PlayerAliveState{
         {
             player.stateMachine.changeState(player.playerFallState);
         }
-        if (player.touchingWall)
+        if (player.touchingWall && durationOfState > 3)
         {
             player.stateMachine.changeState(player.playerClimbState);
         }

@@ -52,7 +52,7 @@ public class TimerManager : MonoBehaviour
     private void OnTimerComplete()
     {
         Debug.Log("Timer Complete!");
-        SceneManager.LoadScene("LoseScene");
+        SceneManager.LoadScene("TimerLoseScene");
     }
     
     // Public methods to control the timer

@@ -26,6 +26,8 @@ public class PlayerFallState : PlayerAliveState{
         {
             if (player.input.moveVal.x == 0.0f)
             {
+                player.sfx.clip = player.land;
+                player.sfx.Play();
                 player.stateMachine.changeState(player.playerStandState);
             }
             else

@@ -14,6 +14,7 @@ public class PlayerClimbState : PlayerAliveState
     Sprite[] currentGraphics;
     bool contactLossBufferFrameUsed;
     bool ignoreGrappleInput;
+    Player.FacingDirection facingDirection;
     public override void enter()
     {
         player.sfx.PlayOneShot(player.LandOnWall);
@@ -23,8 +24,8 @@ public class PlayerClimbState : PlayerAliveState
         GraphicChangeThreshold = 3;
         currentGraphicIndex = 0;
         graphicChangeCounter = 0;
-
-        if (player.facingDirection == Player.FacingDirection.Left) { currentGraphics = player.climbLeft; } else { currentGraphics = player.climbRight; }
+        facingDirection = player.facingDirection;
+        if (facingDirection == Player.FacingDirection.Left) { currentGraphics = player.climbLeft; } else { currentGraphics = player.climbRight; }
         player.SetSprite(currentGraphics[0]);
 
 
@@ -43,6 +44,7 @@ public class PlayerClimbState : PlayerAliveState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        player.facingDirection = facingDirection;
         if (temporaryignoreJump & !player.input.jumpPressed) { temporaryignoreJump = false; }
         player.rb.linearVelocityY = 0.0f;
         player.rb.linearVelocityX = 0.0f;
