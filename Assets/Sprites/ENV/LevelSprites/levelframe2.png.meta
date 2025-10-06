@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 74db311658a60574ea2b85bed13cc927
+guid: 4001e14fca392ed4399920c1a3827106
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5709994431559777094
-    second: wet-chunk-6_0
-  - first:
-      213: -6668639008659915746
-    second: wet-chunk-6_1
-  - first:
-      213: -5349358722790763787
-    second: wet-chunk-6_2
+      213: 1804483307931461608
+    second: levelframe2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -132,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wet-chunk-6_0
+      name: levelframe2_0
       rect:
         serializedVersion: 2
-        x: 51
-        y: 245
-        width: 26
-        height: 28
+        x: 10
+        y: 38
+        width: 6567
+        height: 4162
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,52 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ab4cb6d315602c0b0800000000000000
-      internalID: -5709994431559777094
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wet-chunk-6_1
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 256
-        width: 34
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e1c3381572c3473a0800000000000000
-      internalID: -6668639008659915746
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wet-chunk-6_2
-      rect:
-        serializedVersion: 2
-        x: 5
-        y: 0
-        width: 158
-        height: 234
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5f25bef659243c5b0800000000000000
-      internalID: -5349358722790763787
+      spriteID: 8e7606c0200da0910800000000000000
+      internalID: 1804483307931461608
       vertices: []
       indices: 
       edges: []
@@ -211,9 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      wet-chunk-6_0: -5709994431559777094
-      wet-chunk-6_1: -6668639008659915746
-      wet-chunk-6_2: -5349358722790763787
+      levelframe2_0: 1804483307931461608
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

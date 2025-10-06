@@ -23,5 +23,5 @@ public class Treasure : MonoBehaviour
         }
 
     }
-    public enum WhatAmI{ Bezoar, Butters, Console, Controller, Flesh, Skull, Vinyl}
+    public enum WhatAmI{ Bezoar, Butters, Console, Controller, Flesh, Skull, Vinyl, TV}
 }
