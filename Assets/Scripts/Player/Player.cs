@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
@@ -51,9 +52,11 @@ public class Player : MonoBehaviour
     [SerializeField] public bool[] haveConsoles;
     [SerializeField] public bool[] haveControllers;
     [SerializeField] public bool[] haveVinyls;
+    [SerializeField] public bool[] haveTVs;
     List<Treasure> Consoles;
     List<Treasure> Controllers;
     List<Treasure> Vinyls;
+    List<Treasure> TVs;
 
     [Header("Common Treasure Trackers")]
     [SerializeField] public bool[] haveBezoars;
@@ -106,7 +109,8 @@ public class Player : MonoBehaviour
         Fleshes = new List<Treasure>();
         Bezoars = new List<Treasure>();
         Vinyls = new List<Treasure>();
-
+        TVs = new List<Treasure>();
+        
         Treasure[] allTreasures = FindObjectsByType<Treasure>(FindObjectsSortMode.None);
         foreach (Treasure treasure in allTreasures)
         {
@@ -139,6 +143,10 @@ public class Player : MonoBehaviour
                     treasure.treasureIndex = Vinyls.Count;
                     Vinyls.Add(treasure);
                     break;
+                case Treasure.WhatAmI.TV:
+                    treasure.treasureIndex = TVs.Count;
+                    TVs.Add(treasure);
+                    break;
                 default:
                     break;
             }
@@ -148,6 +156,7 @@ public class Player : MonoBehaviour
         haveControllers = new bool[Controllers.Count];
         haveFleshes = new bool[Fleshes.Count];
         haveVinyls = new bool[Vinyls.Count];
+        haveTVs = new bool[TVs.Count];
         TreasuresRemaining = Bezoars.Count + Consoles.Count + Controllers.Count + Fleshes.Count + Vinyls.Count + 2; //the 2 being Butters and the Skull.
     }
     // Update is called once per frame
