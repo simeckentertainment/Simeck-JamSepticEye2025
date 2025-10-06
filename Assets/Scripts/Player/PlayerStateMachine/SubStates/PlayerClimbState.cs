@@ -16,6 +16,7 @@ public class PlayerClimbState : PlayerAliveState
     bool ignoreGrappleInput;
     public override void enter()
     {
+        player.sfx.PlayOneShot(player.LandOnWall);
         ignoreGrappleInput = true;
         Debug.Log("Climb!");
         contactLossBufferFrameUsed = false;
