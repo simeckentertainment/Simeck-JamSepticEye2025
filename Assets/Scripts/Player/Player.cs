@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     public float climbSpeed;
     public int GrapplerDist;
     public GrapplerTargetingMachine GTM;
+    [SerializeField] public TMP_Text moneyText;
 
     [Header("Graphics Storage")]
     [SerializeField] public SpriteRenderer playerSpriteRenderer;
@@ -43,6 +45,9 @@ public class Player : MonoBehaviour
     [SerializeField] public GameObject HookOBJ;
 
 
+    [Header("General Treasure Stuff")]
+    [SerializeField] int TreasuresRemaining;
+    [SerializeField] int riches;
 
     [Header("Unique Treasure Trackers")]
     [SerializeField] public bool hasSkull;
@@ -81,11 +86,11 @@ public class Player : MonoBehaviour
     public PlayerHopOnPlatformState playerHopOnPlatformState { get; set; }
     public PlayerFireGrappleState playerFireGrappleState { get; set; }
     public PlayerWinState playerWinState { get; set; }
-    [SerializeField] int TreasuresRemaining;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
         gameBeaten = false;
         GrabTreasures(); //Fills
         stateMachine = GetComponent<PlayerStateMachine>();
@@ -110,7 +115,7 @@ public class Player : MonoBehaviour
         Bezoars = new List<Treasure>();
         Vinyls = new List<Treasure>();
         TVs = new List<Treasure>();
-        
+
         Treasure[] allTreasures = FindObjectsByType<Treasure>(FindObjectsSortMode.None);
         foreach (Treasure treasure in allTreasures)
         {
@@ -267,10 +272,12 @@ public class Player : MonoBehaviour
                 default:
                     break;
             }
+            riches += treasureObj.treasureValue;
+            UpdateRichesText();
             TreasuresRemaining -= 1;
         }
-        
-       
+
+
     }
 
 
@@ -311,7 +318,13 @@ public class Player : MonoBehaviour
     {
         SceneManager.LoadScene("WinScene");
     }
+
+    void UpdateRichesText()
+    {
+        moneyText.text = riches.ToString();
+    }
 }
+
 
 
 
