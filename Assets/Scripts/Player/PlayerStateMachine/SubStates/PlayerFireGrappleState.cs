@@ -11,7 +11,8 @@ public class PlayerFireGrappleState : PlayerAliveState
     Vector2 pushDirection;
     public override void enter()
     {
-        player.sfx.PlayOneShot(player.FireGrappler);
+        player.sfx.clip = player.FireGrappler;
+        player.sfx.Play();
         player.ShowHook();
         if (player.GTM.validTarget)
         {
