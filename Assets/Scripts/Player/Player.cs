@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public int GrapplerDist;
     public GrapplerTargetingMachine GTM;
     [SerializeField] public TMP_Text moneyText;
+    [SerializeField] public AudioSource sfx;
 
     [Header("Graphics Storage")]
     [SerializeField] public SpriteRenderer playerSpriteRenderer;
@@ -73,6 +74,14 @@ public class Player : MonoBehaviour
     [SerializeField] public GameObject LeftHookshotLaunchPoint;
     [SerializeField] public GameObject RightHookshotLaunchPoint;
     [SerializeField] public Transform targetingReticle;
+
+
+
+    [Header("Sound Effects")]
+    [SerializeField] public AudioClip jumpSound;
+    [SerializeField] public AudioClip FireGrappler;
+    [SerializeField] public AudioClip LandOnWall;
+
 
 
     [Header("State Machine States")]
@@ -273,6 +282,7 @@ public class Player : MonoBehaviour
                     break;
             }
             riches += treasureObj.treasureValue;
+            sfx.PlayOneShot(treasureObj.pickupSound);
             UpdateRichesText();
             TreasuresRemaining -= 1;
         }

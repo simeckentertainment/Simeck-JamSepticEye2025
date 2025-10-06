@@ -9,6 +9,7 @@ public class PlayerJumpState : PlayerAliveState{
     public override void enter()
     {
         Debug.Log("Jump!");
+        player.sfx.PlayOneShot(player.jumpSound);
         if (player.facingDirection == Player.FacingDirection.Left)
         {
             player.SetSprite(player.jumpLeft);

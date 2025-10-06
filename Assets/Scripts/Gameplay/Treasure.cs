@@ -6,6 +6,7 @@ public class Treasure : MonoBehaviour
     [SerializeField] public WhatAmI whatAmI;
     [SerializeField] public int treasureIndex;
     [SerializeField] public int treasureValue;
+    [SerializeField] public AudioClip pickupSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
