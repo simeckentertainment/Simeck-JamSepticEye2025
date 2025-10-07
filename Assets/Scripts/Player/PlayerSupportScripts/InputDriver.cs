@@ -34,7 +34,7 @@ public class InputDriver : MonoBehaviour
         RunAim();
         harpoonPressed = harpoonAction.ReadValue<float>() >= 0.5f;
         jumpPressed = jumpAction.ReadValue<float>() == 1.0f;
-        if (QuitAction.ReadValue<float>() == 1.0f)
+        if (QuitAction.ReadValue<bool>() == true)
         {
             Application.Quit();
         }
